@@ -9,7 +9,7 @@ export default function App() {
       <Text style={styles.greeting}>Hello world!</Text>
       <Button title="Click me" color="green"/>
       <StatusBar style="auto" />
-      <TextBox color="green" size="30" text="Custom Component"/>
+      <TextBox color="green" size={30} text="Custom Component"/>
     </View>
   );
 }
