@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component }  from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { TextBox } from './components/TextBox';
 import { Start } from './components/Start';
 
@@ -32,23 +32,27 @@ class App extends Component {
   // Main function render that react native uses to render the code and display
   render () {
     return (
-      <View style={styles.container}>
-        <View style={styles.container1}>
-          <TextBox color="blue" size={24} text="Guess my number..." />
+      <TouchableWithoutFeedback onPress={() => {
+        Keyboard.dismiss();
+      }}>
+        <View style={styles.container}>
+          <View style={styles.container1}>
+            <TextBox color="blue" size={24} text="Guess my number..." />
+          </View>
+          <View style={styles.container1}>
+            <TextInput style={styles.input} onChangeText={ this.updateGuess } placeholder={'Type here...'} placeholderTextColor={'blue'} ref={input => { this.TextInput = input }}/>  
+          </View>
+          <View style={styles.container1}>
+            <Button title="Guess" color="green" onPress={ this.checkGuess }/>
+          </View>
+          <View style={styles.container1}>
+            <Text>{ this.state.feedback }</Text>
+          </View>
+          <View style={styles.container1}>
+            <Start correct={ this.state.correct } handler={this.restartGame} /> 
+          </View>          
         </View>
-        <View style={styles.container1}>
-          <TextInput style={styles.input} onChangeText={ this.updateGuess } placeholder={'Type here...'} placeholderTextColor={'blue'} ref={input => { this.TextInput = input }}/>  
-        </View>
-        <View style={styles.container1}>
-          <Button title="Guess" color="green" onPress={ this.checkGuess }/>
-        </View>
-        <View style={styles.container1}>
-          <Text>{ this.state.feedback }</Text>
-        </View>
-        <View style={styles.container1}>
-          <Start correct={ this.state.correct } handler={this.restartGame} /> 
-        </View>          
-      </View>
+      </TouchableWithoutFeedback>
     );
   }  
 
@@ -97,7 +101,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   container1: {
-    margin: 30
+    margin: 27
   },
   greeting: {
     color: 'red',
